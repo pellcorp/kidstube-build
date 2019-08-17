@@ -1,9 +1,39 @@
-commit 9781e9e1be578a089d8b9dd4660eb0406ea5bd15
+commit 16d01fd7d9b0692693db0202bef7de2e0e11e685
 Author: Jason Pell <jason@pellcorp.com>
 Date:   Sun Aug 18 00:42:58 2019 +1000
 
     kids tube
+    
+    change name to kidstube
+    
+    fix typo
 
+diff --git a/minitube.desktop b/minitube.desktop
+index da57870..6ecce1e 100644
+--- a/minitube.desktop
++++ b/minitube.desktop
+@@ -1,6 +1,6 @@
+ [Desktop Entry]
+-Name=Minitube
+-Name[en]=Minitube
++Name=Kidstube
++Name[en]=Kidstube
+ Comment=Watch YouTube videos
+ Comment[es]=Vea los videos de YouTube
+ Comment[gl]=Vexa os vídeos de YouTube
+diff --git a/minitube.pro b/minitube.pro
+index 27c5a01..65a6cd7 100644
+--- a/minitube.pro
++++ b/minitube.pro
+@@ -4,7 +4,7 @@ TEMPLATE = app
+ VERSION = 3.1
+ DEFINES += APP_VERSION="$$VERSION"
+ 
+-APP_NAME = Minitube
++APP_NAME = Kidstube
+ DEFINES += APP_NAME="$$APP_NAME"
+ 
+ APP_UNIX_NAME = minitube
 diff --git a/src/homeview.cpp b/src/homeview.cpp
 index 8ee3241..151288a 100644
 --- a/src/homeview.cpp
@@ -99,6 +129,19 @@ index e6343ab..16746b4 100644
      currentVideoActions.reserve(videoActionNames.size());
      for (auto *name : videoActionNames) {
          currentVideoActions.append(mainWindow->getAction(name));
+diff --git a/src/searchview.cpp b/src/searchview.cpp
+index 6536d0b..0d0602a 100644
+--- a/src/searchview.cpp
++++ b/src/searchview.cpp
+@@ -97,7 +97,7 @@ SearchView::SearchView(QWidget *parent) : View(parent) {
+         QString cssColor = QString::asprintf("rgba(%d,%d,%d,%d)", r, g, b, a);
+         QString text =
+                 QString("<h1 style='font-weight:300;color:%1'>").arg(cssColor) +
+-                tr("Welcome to <a href='%1'>%2</a>,")
++                tr("Welcome to <a href='%1'>%2</a>")
+                         .replace("<a ", "<a style='text-decoration:none; color:palette(text)' ")
+                         .arg(Constants::WEBSITE, Constants::NAME) +
+                 "</h1>";
 diff --git a/src/ytsearch.cpp b/src/ytsearch.cpp
 index ea07412..4b336c0 100644
 --- a/src/ytsearch.cpp

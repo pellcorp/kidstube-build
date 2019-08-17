@@ -20,7 +20,6 @@ EOM
 sudo chmod 777 /usr/bin/kidstube
 
 cp /usr/share/applications/minitube.desktop /tmp/minitube.desktop
-sed -i 's/=Minitube/=Kidstube/g' /tmp/minitube.desktop
 sed -i 's:Exec=minitube:Exec=kidstube:g' /tmp/minitube.desktop
 sudo desktop-file-install /tmp/minitube.desktop
 rm /tmp/minitube.desktop
