@@ -7,7 +7,7 @@ export QT_SELECT=qt5
 	dh $@
 
 override_dh_auto_configure::
-	dh_auto_configure -- DEFINES+=APP_GOOGLE_API_KEY=AIzaSyC9EDpL8xpx_EcAbTbn66wbMwMzqzSI3MM
+	dh_auto_configure -- DEFINES+="APP_KIDSTUBE APP_GOOGLE_API_KEY=AIzaSyC9EDpL8xpx_EcAbTbn66wbMwMzqzSI3MM"
 
 override_dh_auto_install::
 	dh_auto_install --destdir=debian/tmp

@@ -1,0 +1,147 @@
+commit 9781e9e1be578a089d8b9dd4660eb0406ea5bd15
+Author: Jason Pell <jason@pellcorp.com>
+Date:   Sun Aug 18 00:42:58 2019 +1000
+
+    kids tube
+
+diff --git a/src/homeview.cpp b/src/homeview.cpp
+index 8ee3241..151288a 100644
+--- a/src/homeview.cpp
++++ b/src/homeview.cpp
+@@ -55,11 +55,13 @@ void HomeView::setupBar() {
+     bar->addAction(action);
+     bar->setCheckedAction(action);
+ 
++#ifndef APP_KIDSTUBE
+     action = new QAction(tr("Browse"), this);
+     action->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_2));
+     action->setStatusTip(tr("Browse videos by category"));
+     connect(action, SIGNAL(triggered()), SLOT(showStandardFeeds()));
+     bar->addAction(action);
++#endif
+ 
+     subscriptionsAction = new QAction(tr("Subscriptions"), this);
+     subscriptionsAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_3));
+@@ -128,7 +130,11 @@ void HomeView::showChannels() {
+         stackedWidget->addWidget(channelsView);
+     }
+     showWidget(channelsView);
++#ifndef APP_KIDSTUBE
+     bar->setCheckedAction(2);
++#else
++    bar->setCheckedAction(1);
++#endif
+ }
+ 
+ void HomeView::unwatchedCountChanged(int count) {
+diff --git a/src/mainwindow.cpp b/src/mainwindow.cpp
+index 4a3a480..9299ff5 100644
+--- a/src/mainwindow.cpp
++++ b/src/mainwindow.cpp
+@@ -567,6 +567,7 @@ void MainWindow::createActions() {
+     actionMap.insert("subscribeChannel", action);
+     mediaView->updateSubscriptionActionForVideo(0, false);
+ 
++#ifndef APP_KIDSTUBE
+     QString shareTip = tr("Share the current video using %1");
+ 
+     action = new QAction("&Twitter", this);
+@@ -589,6 +590,7 @@ void MainWindow::createActions() {
+     action->setEnabled(false);
+     actionMap.insert("email", action);
+     connect(action, SIGNAL(triggered()), mediaView, SLOT(shareViaEmail()));
++#endif
+ 
+     action = new QAction(tr("&Close"), this);
+     action->setShortcut(QKeySequence(QKeySequence::Close));
+@@ -652,6 +654,11 @@ void MainWindow::createActions() {
+     IconUtils::setIcon(action, "safesearch");
+     action->setStatusTip(tr("Hide videos that may contain inappropriate content"));
+     action->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_K));
++#ifdef APP_KIDSTUBE
++	action->setEnabled(false);
++	action->setChecked(true);
++	action->setVisible(false);
++#endif
+     action->setCheckable(true);
+     actionMap.insert("safeSearch", action);
+ 
+@@ -740,11 +747,13 @@ void MainWindow::createMenus() {
+     QMenu *shareMenu = menuBar()->addMenu(tr("&Share"));
+     menuMap.insert("share", shareMenu);
+     shareMenu->addAction(copyPageAct);
++#ifndef APP_KIDSTUBE
+     shareMenu->addSeparator();
+     shareMenu->addAction(getAction("twitter"));
+     shareMenu->addAction(getAction("facebook"));
+     shareMenu->addSeparator();
+     shareMenu->addAction(getAction("email"));
++#endif
+ 
+     QMenu *viewMenu = menuBar()->addMenu(tr("&View"));
+     menuMap.insert("view", viewMenu);
+diff --git a/src/mediaview.cpp b/src/mediaview.cpp
+index e6343ab..16746b4 100644
+--- a/src/mediaview.cpp
++++ b/src/mediaview.cpp
+@@ -145,10 +145,12 @@ void MediaView::initialize() {
+     const QVector<const char *> videoActionNames = {
+ #ifdef APP_SNAPSHOT
+             "snapshot",
++#endif
++#ifndef APP_KIDSTUBE
++            "twitter",  "facebook", "email",
+ #endif
+             "webpage",  "pagelink", "videolink",     "openInBrowser", "findVideoParts",
+-            "skip",     "previous", "stopafterthis", "relatedVideos", "refineSearch",
+-            "twitter",  "facebook", "email"};
++            "skip",     "previous", "stopafterthis", "relatedVideos", "refineSearch"};
+     currentVideoActions.reserve(videoActionNames.size());
+     for (auto *name : videoActionNames) {
+         currentVideoActions.append(mainWindow->getAction(name));
+diff --git a/src/ytsearch.cpp b/src/ytsearch.cpp
+index ea07412..4b336c0 100644
+--- a/src/ytsearch.cpp
++++ b/src/ytsearch.cpp
+@@ -125,6 +125,9 @@ void YTSearch::loadVideos(int max, int startIndex) {
+         break;
+     }
+ 
++#ifdef APP_KIDSTUBE
++    q.addQueryItem("safeSearch", "strict");
++#else
+     switch (searchParams->safeSearch()) {
+     case SearchParams::None:
+         q.addQueryItem("safeSearch", "none");
+@@ -133,6 +136,7 @@ void YTSearch::loadVideos(int max, int startIndex) {
+         q.addQueryItem("safeSearch", "strict");
+         break;
+     }
++#endif
+ 
+     url.setQuery(q);
+ 
+diff --git a/src/ytsinglevideosource.cpp b/src/ytsinglevideosource.cpp
+index 09936ca..82a5235 100644
+--- a/src/ytsinglevideosource.cpp
++++ b/src/ytsinglevideosource.cpp
+@@ -63,6 +63,11 @@ void YTSingleVideoSource::loadVideos(int max, int startIndex) {
+         q.addQueryItem("type", "video");
+         q.addQueryItem("relatedToVideoId", videoId);
+         q.addQueryItem("maxResults", QString::number(max));
++
++#ifdef APP_KIDSTUBE
++        q.addQueryItem("safeSearch", "strict");
++#endif
++
+         if (startIndex > 2) {
+             if (maybeReloadToken(max, startIndex)) return;
+             q.addQueryItem("pageToken", nextPageToken);
+@@ -72,6 +77,7 @@ void YTSingleVideoSource::loadVideos(int max, int startIndex) {
+ 
+     lastUrl = url;
+ 
++    // qWarning() << "YT single video source" << url.toString();
+     QObject *reply = HttpUtils::yt().get(url);
+     connect(reply, SIGNAL(data(QByteArray)), SLOT(parseResults(QByteArray)));
+     connect(reply, SIGNAL(error(QString)), SLOT(requestError(QString)));

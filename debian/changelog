@@ -1,3 +1,21 @@
+minitube (3.1-1kidstube) unstable; urgency=medium
+
+  * Kidstube permutation
+
+ -- Jason Pell <jason@pellcorp.com>  Sun, 18 Aug 2019 00:46:00 +1000
+
+minitube (3.1-1) unstable; urgency=medium
+
+  * New upstream version 3.1
+  * Update watch file to use releases instead of tags
+  * Drop patches/Update-AppStream-data, applied upstream
+  * Update build dependencies
+  * Drop custom compression options
+  * Install AppStream files to /usr/share/metainfo
+  * Update my mail address
+
+ -- Jakob Haufe <sur5r@debian.org>  Sun, 14 Jul 2019 19:08:28 +0000
+
 minitube (3.1-1) unstable; urgency=medium
 
   * New upstream version 3.1
