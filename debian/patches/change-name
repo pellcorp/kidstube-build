@@ -1,0 +1,19 @@
+commit c2b90a00245ac581ec54b3c6b5e6a1b7ef2a4697
+Author: Jason Pell <jason@pellcorp.com>
+Date:   Sun Aug 18 02:10:52 2019 +1000
+
+    change name to kidstube
+
+diff --git a/minitube.pro b/minitube.pro
+index 27c5a01..65a6cd7 100644
+--- a/minitube.pro
++++ b/minitube.pro
+@@ -4,7 +4,7 @@ TEMPLATE = app
+ VERSION = 3.1
+ DEFINES += APP_VERSION="$$VERSION"
+ 
+-APP_NAME = Minitube
++APP_NAME = Kidstube
+ DEFINES += APP_NAME="$$APP_NAME"
+ 
+ APP_UNIX_NAME = minitube

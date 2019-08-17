@@ -10,7 +10,7 @@ Vcs-Git: https://git.sur5r.net/minitube
 
 Package: minitube
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, default-dbus-session-bus | dbus-session-bus, libqt5sql5-sqlite
+Depends: libqt5widgets5, libqt5network5, libqt5qml5, libqt5sql5, libqt5sql5-sqlite, libqt5dbus5, libmpv1 (>= 0.29.0)
 Description: Native YouTube client
  Minitube is a native YouTube client. With it you can watch YouTube videos in
  a new way: you type a keyword, Minitube gives you an endless video stream.
