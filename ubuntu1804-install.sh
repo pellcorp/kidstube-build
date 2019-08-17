@@ -4,7 +4,7 @@ sudo add-apt-repository -y -n ppa:beineri/opt-qt-5.12.0-bionic
 sudo add-apt-repository -y -n ppa:mc3man/bionic-media
 sudo apt-get update
 
-wget https://github.com/pellcorp/minitube-build/raw/master/dist/minitube_3.1-1kidstube_amd64.deb -O /tmp/minitube_3.1-1kidstube_amd64.deb
+wget https://github.com/pellcorp/kidstube-build/raw/master/dist/minitube_3.1-1kidstube_amd64.deb -O /tmp/minitube_3.1-1kidstube_amd64.deb
 sudo dpkg -i /tmp/minitube_3.1-1kidstube_amd64.deb
 rm /tmp/minitube_3.1-1kidstube_amd64.deb
 sudo apt-get -y install --fix-broken
