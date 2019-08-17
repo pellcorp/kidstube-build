@@ -1,0 +1,21 @@
+Source: minitube
+Section: video
+Priority: optional
+Maintainer: Jakob Haufe <sur5r@debian.org>
+Build-Depends: debhelper (>= 11), qtbase5-dev, qtchooser, qttools5-dev-tools, qtdeclarative5-dev, libqt5x11extras5-dev, libmpv-dev
+Standards-Version: 4.2.0
+Homepage: http://flavio.tordini.org/minitube
+Vcs-Browser: https://git.sur5r.net/?p=minitube;a=summary
+Vcs-Git: https://git.sur5r.net/minitube
+
+Package: minitube
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, default-dbus-session-bus | dbus-session-bus, libqt5sql5-sqlite
+Description: Native YouTube client
+ Minitube is a native YouTube client. With it you can watch YouTube videos in
+ a new way: you type a keyword, Minitube gives you an endless video stream.
+ .
+ Minitube does not require the Flash Player.
+ .
+ Minitube is not about cloning the original YouTube web interface, it aims to
+ create a new TV-like experience.

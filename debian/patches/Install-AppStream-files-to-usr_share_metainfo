@@ -1,0 +1,16 @@
+Description: Install AppStream metadata to /usr/share/metainfo/
+Author: Jakob Haufe <sur5r@debian.org>
+Forwarded: no
+Last-Update: 2019-07-14
+
+--- minitube-3.1.orig/minitube.pro
++++ minitube-3.1/minitube.pro
+@@ -236,7 +236,7 @@ unix:!mac {
+     sounds.files += sounds/
+     desktop.path = $$DATADIR/applications
+     desktop.files += minitube.desktop
+-    appdata.path = $$DATADIR/appdata
++    appdata.path = $$DATADIR/metainfo
+     appdata.files += minitube.appdata.xml
+     iconsvg.path = $$DATADIR/icons/hicolor/scalable/apps
+     iconsvg.files += data/minitube.svg

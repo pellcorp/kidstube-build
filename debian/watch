@@ -1,0 +1,4 @@
+version=3
+
+#opts=filenamemangle=s/.+\/v?(\d\S*)\.tar\.gz/minitube-$1\.tar\.gz/
+https://github.com/flaviotordini/minitube/releases .*/minitube-?(\d\S*)\.tar\.bz2

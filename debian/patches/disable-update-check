@@ -1,0 +1,16 @@
+Description: Disable update check as it's useless for a packaged version
+Author: Jakob Haufe <sur5r@sur5r.net>
+
+Index: minitube/src/mainwindow.cpp
+===================================================================
+--- minitube.orig/src/mainwindow.cpp
++++ minitube/src/mainwindow.cpp
+@@ -218,7 +218,7 @@ void MainWindow::lazyInit() {
+ 
+     ChannelAggregator::instance()->start();
+ 
+-    checkForUpdate();
++    //checkForUpdate();
+ 
+     initialized = true;
+ }
